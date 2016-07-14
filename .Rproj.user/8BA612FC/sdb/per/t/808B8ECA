@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\nshinyServer(function(input, output, session){\n    \n    ### Intro ###\n  \n  output$chart <- renderPlot({\n    new1 <- cleanData()\n    if(input$demo %in% (\"Age_at_purchase\")){\n      data <- ddply(new1,~year,summarise,mean=mean(Age_at_purchase))}\n    if(input$demo %in% (\"Gender\")){\n      data <- ddply(new1,~year,summarise,mean=count(Gender))}\n    if(input$demo %in% (\"inches\")){\n      data <- ddply(new1,~year,summarise,mean=mean(inches))}\n\n    p <- ggplot(data, aes(x = year, y = mean)) + geom_point() +\n      ggtitle(input$demo)\n    p <- p + geom_hline(yintercept=mean(data$mean))\n    p + theme_wsj()\n  })\n  \n  \n  output$chart2 <- renderChart2({\n    validate( need(input$group1 != input$group2 , 'Please select different groups.'))\n    new1 <- cleanData()\n    \n    df <- count(new1, c(input$group1, input$group2))\n    df$Col1 <- df[,1]\n    df$Col2 <- df[,2]\n    n1 <- nPlot(freq ~ Col1, group = \"Col2\", data = df, type = \"multiBarChart\")\n    n1$yAxis(tickFormat = \"#! function(d) {return d} !#\")\n    n1$chart(color = c('#F7941E', '#6E91A3', '#608DC3', '#48626F', '#9FBE61', '#8D74AD'))\n    n1$params$height <- 500\n    n1\n  })\n\n  # Pie Chart;\n  output$piechart <- renderChart2({\n    new1 <- cleanData()\n    a <- as.character(input$group1)\n    b <- which(colnames(new1)==a)\n    new1$col <- new1[,b]\n    p <- nPlot(~ col, data = new1, type = 'pieChart')\n    p$chart(donut = TRUE)\n    p$chart(color = c('#F7941E', '#6E91A3', '#608DC3', '#48626F', '#9FBE61', '#8D74AD'))\n    p$params$height <- 245\n    p$params$width <- 350\n    p\n  })\n  \n  output$piechart2 <- renderChart2({\n    new1 <- cleanData()\n    a <- as.character(input$group2)\n    b <- which(colnames(new1)==a)\n    new1$col <- new1[,b]\n    p <- nPlot(~ col, data = new1, type = 'pieChart')\n    p$chart(donut = TRUE)\n    p$chart(color = c('#F7941E', '#6E91A3', '#608DC3', '#48626F', '#9FBE61', '#8D74AD'))\n    p$params$height <- 245\n    p$params$width <- 350\n    p\n  })\n  \n  \n  \n  \n  \n  \n    ### Files for Panel 1 ###\n    panel1.server.dir <- 'external.server/'\n    source(paste0(panel1.server.dir, 'reactives.server.R'),            local = T)\n    \n    ### Files for Panel 2 ###\n    panel2.server.dir <- 'external.server/panel2/'\n    # source(paste0(panel2.server.dir, 'panel2.server.R'),    local = T)\n    \n    ### Files for Panel 3 ###\n    panel3.server.dir <- 'external.server/objective3/'\n    # source(paste0(panel3.server.dir, 'panel3.server.R'), local = T)\n})\n\n\n\n\n\n",
+    "created" : 1468534427104.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2440195855",
+    "id" : "808B8ECA",
+    "lastKnownWriteTime" : 1468533984,
+    "last_content_update" : 1468533984,
+    "path" : "C:/Users/kaseyriver11/Desktop/Explore/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
