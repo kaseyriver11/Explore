@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\n# Check if we have the packages needed!\nneed_packages <- c(\"shiny\", \"rCharts\")\nnew.packages <- need_packages[!(need_packages %in% installed.packages()[,\"Package\"])]\n# If we need any, install them \nif(length(new.packages)) install.packages(new.packages)\n\n#\nlibrary(shiny)\nlibrary(tm)\nlibrary(rCharts)\nlibrary(ggplot2)\nlibrary(plyr)\n\n\nnew1 <- new\nmax <- max(new1$CreateDate)\nmin <- min(new1$CreateDate)\n\n",
+    "created" : 1468534460786.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3740944369",
+    "id" : "AC29A0FB",
+    "lastKnownWriteTime" : 1468528403,
+    "last_content_update" : 1468528403,
+    "path" : "C:/Users/kaseyriver11/Desktop/Explore/global.R",
+    "project_path" : "global.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
