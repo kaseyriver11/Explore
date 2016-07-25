@@ -88,8 +88,16 @@ navbarPage("Exploring IAA Life Insurance Data", inverse=TRUE,
                 tabPanel("Possible Errors", align="left", tableOutput("badTable1")),
                 tabPanel("Employee Reward History", align="center", dataTableOutput("recentTable1")))
             ))
-        )
-        )
+        ),
+        
+        tabPanel("Geospatial Analysis",
+                 fluidPage(
+                   titlePanel("Geospatial analysis"),
+                   mainPanel(
+                     plotlyOutput("trendPlot",  width = "150%", height = '800px')
+                   )
+                 ))
+          )
 ))
 
 

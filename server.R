@@ -111,12 +111,70 @@ shinyServer(function(input, output, session){
         HTML(paste(str1, str2, str3, str4, sep = '<br/>'))
     })
   
-  
+    output$trendPlot <- renderPlotly({
+      # geo styling
+      m <- list(
+        colorbar = list(title = "Average Reward Amount"),
+        size = 8, opacity = 0.8, symbol = 'circle'
+      )
+
+      g <- list(
+        scope = 'usa',
+        projection = list(
+          type = 'conic conformal',
+          rotation = list(
+            lon = -100
+          )
+        ),
+        showland = TRUE,
+        landcolor = toRGB("gray95"),
+        subunitcolor = toRGB("gray85"),
+        countrycolor = toRGB("gray85"),
+        countrywidth = 0.5,
+        subunitwidth = 0.5
+      )
+      #
+      # g <- list(
+      #   scope = 'north america',
+      #   showland = TRUE,
+      #   landcolor = toRGB("grey83"),
+      #   subunitcolor = toRGB("white"),
+      #   countrycolor = toRGB("white"),
+      #   showlakes = TRUE,
+      #   lakecolor = toRGB("white"),
+      #   showsubunits = TRUE,
+      #   showcountries = TRUE,
+      #   resolution = 50,
+      #   projection = list(
+      #     type = 'conic conformal',
+      #     rotation = list(
+      #       lon = -100
+      #     )
+      #   ),
+      #   lonaxis = list(
+      #     showgrid = TRUE,
+      #     gridwidth = 0.5,
+      #     range = c(-140, -55),
+      #     dtick = 5
+      #   ),
+      #   lataxis = list(
+      #     showgrid = TRUE,
+      #     gridwidth = 0.5,
+      #     range = c(20, 60),
+      #     dtick = 5
+      #   )
+      # )
+      
+      plot_ly(geocode, lat = lat, lon = lon, text = hover ,size = geocode$`Number of Customers`, color = avg_reward,
+              type = 'scattergeo', mode = 'markers',
+              marker = m) %>%
+        layout(title = 'IAA Insurance', geo = g)
+    })
   
   
     ### Files for Panel 1 ###
     panel1.server.dir <- 'external.server/'
-    source(paste0(panel1.server.dir, 'reactives.server.R'),            local = T)
+    source(paste0(panel1.server.dir, 'reactives.server.R'), local = T)
     
     ### Files for Panel 2 ###
     panel2.server.dir <- 'external.server/panel2/'

@@ -12,7 +12,10 @@ library(rCharts)
 library(ggplot2)
 library(plyr)
 library(googleVis)
-library(DT) # For data tables;
+library(DT)
+library(plotly)
+library(lubridate)
+# For data tables;
 
 
 # Read new data and find first and last create data; 
@@ -32,4 +35,8 @@ adjtech <- c(unique(adjdata$Adjuster)) #), unique(techdata$Technician))
 state <- unique(new1$State)
 type <- unique(new1$Type)
 race <- unique(new1$Race)
+
+
+
+
 
